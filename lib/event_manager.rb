@@ -40,6 +40,27 @@ def phone_number_length(phone_number)
     phone_number.digits.length
 end
 
+def first_digit(phone_number)
+    first = phone_number.to_s[0].to_i
+end
+
+def remove_first_digit(phone_number)
+    valid_phone_number = phone_number.to_s[1..9]
+end
+
+def normalize_phone_number(phone_number)
+    phone_number = readable_phone(phone_number)
+    length = phone_number_length(phone_number)
+    if length == 10
+        phone_number
+    elsif length == 11 && first_digit(phone_number) == 1
+        phone_number = remove_first_digit(phone_number)
+        phone_number
+    else
+        'Invalid phone number'
+    end
+end
+
 puts 'EventManager initialized!'
 
 contents = CSV.open('event_attendees.csv', 
@@ -61,12 +82,16 @@ contents.each do |row|
     # form_letter = erb_template.result(binding)
 
     # save_thank_you_letter(id, form_letter)
-    phone_number = readable_phone(row[:homephone])
-    puts "#{phone_number_length(phone_number)}: #{phone_number}"
+    phone_number = row[:homephone]
+    
+    puts "#{id}: #{normalize_phone_number(phone_number)}"
     # if phone < 10 bad
     # if phone == 10 good
     # if phone is 11 and 0 is 1, trim the 1 and its good
     # if phone is 11 and 0 isn't 1 bad
     # if phone > 11 bad
+    
+    
+
 
 end
