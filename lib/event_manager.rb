@@ -36,6 +36,10 @@ def readable_phone(num)
     num.to_i
 end
 
+def phone_number_length(phone_number)
+    phone_number.digits.length
+end
+
 puts 'EventManager initialized!'
 
 contents = CSV.open('event_attendees.csv', 
@@ -58,6 +62,11 @@ contents.each do |row|
 
     # save_thank_you_letter(id, form_letter)
     phone_number = readable_phone(row[:homephone])
-    puts "#{id}: #{phone_number}"
+    puts "#{phone_number_length(phone_number)}: #{phone_number}"
+    # if phone < 10 bad
+    # if phone == 10 good
+    # if phone is 11 and 0 is 1, trim the 1 and its good
+    # if phone is 11 and 0 isn't 1 bad
+    # if phone > 11 bad
 
 end
